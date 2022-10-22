@@ -1,13 +1,19 @@
 import {Server, Socket} from 'socket.io'
-import express from 'express'
+import express,{Response, Request} from 'express'
 import http from 'http'
 import fetch from 'node-fetch'
 import cors from 'cors'
 
 const app = express();
+
 app.use(cors({
   origin:'*'
 }))
+
+//Vercel
+app.get('/', (res:Response, _req:Request) => {
+  res.send("Inicio")
+})
 
 const server = http.createServer(app);
 var usuarios:any = []
