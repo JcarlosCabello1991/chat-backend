@@ -9,7 +9,10 @@ const app = express();
 app.use(cors({
   origin:'*'
 }))
-
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 //Vercel
 app.get('/', (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');  
