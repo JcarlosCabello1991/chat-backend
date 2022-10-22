@@ -1,6 +1,7 @@
 {
   "name": "chat-back",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "start": "node ./index.js",
     "dev": "nodemon ./index.js --port 4000"
