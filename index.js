@@ -6,9 +6,7 @@ import cors from 'cors'
 
 const app = express();
 
-// app.use(cors({
-//   origin:'*'
-// }))
+app.use(cors())
 
 //Vercel
 app.get('/', (req,res) => {
@@ -24,13 +22,8 @@ console.log("hola");
 
 const io = new Server(server,{
   cors:{
-    origin:'*',
-    methods:["GET", "POST"],
-    headers:{
-      'Access-Control-Allow-Origin': '*'
-    }
-  }
-}); 
+    origin:'*'
+}}); 
 
 // declare global{
 //   var chatSocket: Socket;
