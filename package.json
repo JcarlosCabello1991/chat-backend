@@ -12,7 +12,8 @@
     "node-fetch": "^2.6.6",
     "parse": "^3.4.4",
     "socket.io": "^4.5.2",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "vercel": "^28.4.12"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.6",
