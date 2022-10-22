@@ -25,7 +25,10 @@ console.log("hola");
 const io = new Server(server,{
   cors:{
     origin:'*',
-    methods:["GET", "POST"]
+    methods:["GET", "POST"],
+    headers:{
+      'Access-Control-Allow-Origin': '*'
+    }
   }
 }); 
 
