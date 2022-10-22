@@ -3,7 +3,7 @@
   "main": "index.ts",
   "type": "module",
   "scripts": {
-    "start": "node ./index.ts",
+    "start": "node index.ts",
     "dev": "nodemon ./index.ts --port 4000"
   },
   "dependencies": {
