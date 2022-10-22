@@ -11,7 +11,7 @@ app.use(cors({
 }))
 
 //Vercel
-app.get('/', async(res:Response, _req:Request) => {
+app.get('/', (res:Response, _req:Request) => {
   res.send("Inicio")
 })
 
