@@ -11,12 +11,12 @@ app.use(cors({
 }))
 
 //Vercel
-// app.get('/', (req,res) => {
-//   // res.setHeader('Access-Control-Allow-Origin', '*');  
-//   // res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
-//   // res.setHeader('Access-Control-Allow-Methods','Content-Type');
-//   res.send("Escuchando")
-// })
+app.get('/', (req,res) => {
+  // res.setHeader('Access-Control-Allow-Origin', '*');  
+  // res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
+  // res.setHeader('Access-Control-Allow-Methods','Content-Type');
+  res.send("Escuchando")
+})
 
 const server = http.createServer(app);
 var usuarios = []
