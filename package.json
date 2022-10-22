@@ -2,7 +2,7 @@
   "name": "chat-back",
   "main": "index.ts",
   "scripts": {
-    "start": "node index.ts",
+    "start": "nodemon ./index.ts",
     "dev": "nodemon ./index.ts --port 4000"
   },
   "dependencies": {
@@ -14,7 +14,7 @@
     "parse": "^3.4.4",
     "socket.io": "^4.5.2",
     "ts-node": "^10.9.1",
-    "vercel": "^28.4.12"
+    "vercel": "^19.1.2"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.6",
