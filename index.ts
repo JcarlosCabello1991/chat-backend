@@ -11,7 +11,7 @@ app.use(cors({
 }))
 
 //Vercel
-app.use('/', (_req:Request,res:Response) => {
+app.get('/', (_req:Request,res:Response) => {
   res.setHeader('Access-Control-Allow-Origin', '*');  
   res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
   res.setHeader('Access-Control-Allow-Methods','Content-Type');
@@ -138,6 +138,6 @@ function fncompare(a: { nombre: number; }, b: { nombre: number; })
 }
 
 
-server.listen(4000, () => {
+server.listen(process.env.PORT || 4000, () => {
   console.log("Server running");
 })
