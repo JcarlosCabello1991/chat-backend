@@ -11,7 +11,7 @@ app.use(cors({
 }))
 
 //Vercel
-app.get('/', (_req:Request,res:Response) => {
+app.get('/', (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');  
   res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
   res.setHeader('Access-Control-Allow-Methods','Content-Type');
@@ -19,7 +19,7 @@ app.get('/', (_req:Request,res:Response) => {
 })
 
 const server = http.createServer(app);
-var usuarios:any = []
+var usuarios = []
 console.log("hola");
 
 const io = new Server(server,{
@@ -29,10 +29,10 @@ const io = new Server(server,{
   }
 }); 
 
-declare global{
-  var chatSocket: Socket;
-  var onlineUsers: any;
-}
+// declare global{
+//   var chatSocket: Socket;
+//   var onlineUsers: any;
+// }
 
 global.onlineUsers = new Map();
 io.on('connection', function (socket) {
@@ -115,7 +115,7 @@ io.on('connection', function (socket) {
   })
 })
 
-function fnFindUser(id: any)
+function fnFindUser(id)
 {
 	for(var i = 0; i < usuarios.length; i++)
 	{
@@ -127,7 +127,7 @@ function fnFindUser(id: any)
 	return -1;
 }
 
-function fncompare(a: { nombre: number; }, b: { nombre: number; }) 
+function fncompare(a, b) 
 {
   if (a.nombre < b.nombre)
     return -1;
