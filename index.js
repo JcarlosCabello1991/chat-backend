@@ -6,9 +6,9 @@ import cors from 'cors'
 
 const app = express();
 
-app.use(cors({
-  origin:'*'
-}))
+// app.use(cors({
+//   origin:'*'
+// }))
 
 //Vercel
 app.get('/', (req,res) => {
