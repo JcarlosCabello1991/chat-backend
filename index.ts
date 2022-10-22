@@ -137,6 +137,9 @@ function fncompare(a: { nombre: number; }, b: { nombre: number; })
     return 0;
 }
 
+app.listen(process.env.PORT || 4000, () => {
+  console.log("Iniciado")
+})
 
 server.listen(process.env.PORT || 4000, () => {
   console.log("Server running");
