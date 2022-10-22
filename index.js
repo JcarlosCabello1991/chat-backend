@@ -27,9 +27,8 @@ console.log("hola");
 
 const io = new Server(server,{
   cors:{
-    origin:'http://localhost:3000',
-    methods:["GET", "POST"],
-    credentials:true
+    origin:'*',
+    methods:["GET", "POST"]
   }
 }); 
 
