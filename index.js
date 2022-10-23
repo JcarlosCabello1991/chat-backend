@@ -139,6 +139,6 @@ function fncompare(a, b)
 
 server.listen(process.env.PORT || 4000, () => {
   console.log("Server running");
-  let request = http.request()
-  request.setHeader('Access-Control-Allow-Origin', '*')
+  // let request = http.request()
+  // request.setHeader('Access-Control-Allow-Origin', '*')
 })
