@@ -10,7 +10,6 @@ app.use(cors())
 
 //Vercel
 app.get('/', (req,res) => {
-  app.use(res.header('Access-Control-Allow-Origin', '*'))
   // res.setHeader('Access-Control-Allow-Origin', '*');  
   // res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
   // res.setHeader('Access-Control-Allow-Methods','Content-Type');
@@ -140,4 +139,6 @@ function fncompare(a, b)
 
 server.listen(process.env.PORT || 4000, () => {
   console.log("Server running");
+  let request = http.request()
+  request.setHeader('Access-Control-Allow-Origin', '*')
 })
