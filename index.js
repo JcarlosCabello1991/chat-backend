@@ -6,7 +6,9 @@ import cors from 'cors'
 
 const app = express();
 
-app.use(cors())
+app.use(cors({
+    origin:'*'
+}))
 
 //Vercel
 app.get('/', (req,res) => {
@@ -96,6 +98,7 @@ io.on('connection', function (socket) {
     io.emit(`${data.sender}`, {msg:data.msg, from: data.sender})
 
     const updateMessages = async () => {
+      try{
     const response = await fetch("http://localhost:5001/messages",{
         method:'POST',
         headers:{
@@ -106,7 +109,9 @@ io.on('connection', function (socket) {
       })
     const dataResponse = await response.json()
     console.log("MSG",dataResponse);
-    
+      }catch(error){
+        console.log(error.msg)
+      }
     }
     updateMessages();
   })
