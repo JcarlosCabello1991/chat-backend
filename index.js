@@ -10,6 +10,7 @@ app.use(cors())
 
 //Vercel
 app.get('/', (req,res) => {
+  app.use(res.header('Access-Control-Allow-Origin', '*'))
   // res.setHeader('Access-Control-Allow-Origin', '*');  
   // res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
   // res.setHeader('Access-Control-Allow-Methods','Content-Type');
@@ -89,7 +90,7 @@ io.on('connection', function (socket) {
     
     const senderUserSocket = onlineUsers.get(data.sender);
     console.log("sender",senderUserSocket);
-    // if(senderUserSocket)socket.to(receiverUserSocket).emit(`${data.to}`, {msg:data.msg, from: data.sender})//receiverUserSocket
+    if(senderUserSocket)socket.to(receiverUserSocket).emit(`${data.to}`, {msg:data.msg, from: data.sender})//receiverUserSocket
     // const o = io.emit(`${data.to}`, {msg:data.msg, from: data.sender})
     // socket.to(data.socket).emit(`${data.sender}`, {msg:data.msg, from: data.sender})
     socket.broadcast.to(data.to).emit(`${data.receiver}`, {msg:data.msg, from: data.sender})
