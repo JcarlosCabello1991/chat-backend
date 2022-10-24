@@ -100,7 +100,7 @@ io.on('connection', function (socket) {
     const response = await fetch("http://localhost:5001/messages",{
         method:'POST',
         headers:{
-          "Access-Control-Allow-Origin":'*',
+          // "Access-Control-Allow-Origin":'*',
           "Content-Type": "application/json"
         },
         body: JSON.stringify({sender: data.sender, receiver: data.to, msgs:data.msg, name:data.msg.split(':')[0]})
