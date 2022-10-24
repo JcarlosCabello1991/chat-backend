@@ -12,43 +12,30 @@ app.use(cors({
 
 //Vercel
 app.get('/', (req,res) => {
-  // res.setHeader('Access-Control-Allow-Origin', '*');  
-  // res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
-  // res.setHeader('Access-Control-Allow-Methods','Content-Type');
   res.send("Escuchando")
 })
 
 const server = http.createServer(app);
 var usuarios = []
-console.log("hola");
 
 const io = new Server(server,{
   cors:{
     origin:'*'
 }}); 
 
-// declare global{
-//   var chatSocket: Socket;
-//   var onlineUsers: any;
-// }
-
 global.onlineUsers = new Map();
+//Create the connection when user is logged in chat
 io.on('connection', function (socket) {
   global.chatSocket = socket;
-  /////
-  // const usersId = await fetch("http://localhost:5001/users")
-  // const ids = await usersId.json();
-  // console.log("IDSSSSS",ids);//ids.msg(map)._id
-  // ids.msg.map((element: { _id: string | string[]; }) => {
-  //   io.socketsJoin(element._id)
-  // })
+
+  //Update the users list on the array to send its information to each user
   socket.on('update_list', function( data )
 	{
     console.log("######", data);
     
     var user = { idSocket: socket.id, id: data.id, usuario: data.usuario };
 			
-			// Guardar usuario en el arreglo de las sesiones del chat
+			// Save de user in the chat sessions array
 			if(typeof usuarios[fnFindUser(data.id)] === 'undefined')
 			{
 				usuarios.push(user);
@@ -63,24 +50,26 @@ io.on('connection', function (socket) {
   })
   
   console.log(`hola, ${socket}`);
+
+  //When user is connected we set in online user his id and socketId
   socket.on('connected', (userId) => {
-  console.log(userId, socket.id);
-  onlineUsers.set(userId, socket.id);
-  console.log("conectado");
-  // console.log(data.post.msg, data.post.to);
-  // io.emit((data.post.to).toString(), "Recibido")//Primer parametro el nombre o id de la persona a quien va dirigido
+    console.log(userId, socket.id);
+    onlineUsers.set(userId, socket.id);
   })
 
+  //Hearing when a user is typing a new message
   socket.on('typing', (data) => {
     console.log("DATA Typing", data);
     
     const receiverUserSocket = onlineUsers.get(data.to);
     console.log("DATOS USUARIO", usuarios);
     
+    //Sending the typing message to the receiver user
     if(receiverUserSocket)socket.to(receiverUserSocket).emit(`typing`, data.msg)
     socket.broadcast.to(data.to).emit('typing',data.msg)    
   })
 
+  //Hearing when a user sends a new message
   socket.on("send-Message", (data) => {
     console.log("hola", data.to);
     console.log("msg", data.msg);
@@ -91,12 +80,13 @@ io.on('connection', function (socket) {
     
     const senderUserSocket = onlineUsers.get(data.sender);
     console.log("sender",senderUserSocket);
+
+    //Sending the new message to the users of the current convertation
     if(senderUserSocket)socket.to(receiverUserSocket).emit(`${data.to}`, {msg:data.msg, from: data.sender})//receiverUserSocket
-    // const o = io.emit(`${data.to}`, {msg:data.msg, from: data.sender})
-    // socket.to(data.socket).emit(`${data.sender}`, {msg:data.msg, from: data.sender})
     // socket.broadcast.to(data.to).emit(`${data.receiver}`, {msg:data.msg, from: data.sender})
     io.emit(`${data.sender}`, {msg:data.msg, from: data.sender})
-
+    console.log("USUARIOS", usuarios)
+    //Updating the message on the dataBase 
     const updateMessages = async () => {
       try{
     const response = await fetch("http://localhost:5001/messages",{
@@ -117,6 +107,7 @@ io.on('connection', function (socket) {
   })
 })
 
+//Search the user to set if is connected
 function fnFindUser(id)
 {
 	for(var i = 0; i < usuarios.length; i++)
@@ -129,6 +120,7 @@ function fnFindUser(id)
 	return -1;
 }
 
+//Compare de name of each user to sort in the array of connected users
 function fncompare(a, b) 
 {
   if (a.nombre < b.nombre)
@@ -139,12 +131,6 @@ function fncompare(a, b)
     return 0;
 }
 
-// app.listen(process.env.PORT || 4001, () => {
-//   console.log("Iniciado")
-// })
-
 server.listen(process.env.PORT || 4000, () => {
   console.log("Server running");
-  // let request = http.request()
-  // request.setHeader('Access-Control-Allow-Origin', '*')
 })
