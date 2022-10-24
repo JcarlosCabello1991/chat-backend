@@ -71,47 +71,15 @@ io.on('connection', function (socket) {
 
   //Hearing when a user sends a new message
   socket.on("send-Message", (data) => {
-    console.log("hola", data.to);
-    console.log("msg", data.msg);
-    console.log("socket", data.socket);
-    console.log(data)
     const receiverUserSocket = onlineUsers.get(data.to);
     console.log("receiver",receiverUserSocket);
     
     const senderUserSocket = onlineUsers.get(data.sender);
     console.log("sender",senderUserSocket);
-
-    //Check if the user who is goint to receive the message is online
-    const isUserOnline = usuarios.find(user => user.id == data.to)
-    //If user is not connected, must have to update the property pending to 1 more per message each time
-    if(isUserOnline == undefined){
-      console.log("entrando")
-    }
-    console.log("IS USER ONLINE",isUserOnline)
     //Sending the new message to the users of the current convertation
     if(senderUserSocket)socket.to(receiverUserSocket).emit(`${data.to}`, {msg:data.msg, from: data.sender})//receiverUserSocket
     // socket.broadcast.to(data.to).emit(`${data.receiver}`, {msg:data.msg, from: data.sender})
     io.emit(`${data.sender}`, {msg:data.msg, from: data.sender})
-    console.log("USUARIOS", usuarios)
-    //Updating the message on the dataBase 
-    const updateMessages = async () => {
-      console.log("UPDATING MESSAGES")
-      try{
-    const response = await fetch("http://localhost:5001/messages",{
-        method:'POST',
-        headers:{
-          // "Access-Control-Allow-Origin":'*',
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({sender: data.sender, receiver: data.to, msgs:data.msg, name:data.msg.split(':')[0]})
-      })
-    const dataResponse = await response.json()
-    console.log("MSG",dataResponse);
-      }catch(error){
-        console.log(error.msg)
-      }
-    }
-    updateMessages();
   })
 })
 
