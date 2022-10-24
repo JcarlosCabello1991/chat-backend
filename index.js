@@ -94,7 +94,7 @@ io.on('connection', function (socket) {
     if(senderUserSocket)socket.to(receiverUserSocket).emit(`${data.to}`, {msg:data.msg, from: data.sender})//receiverUserSocket
     // const o = io.emit(`${data.to}`, {msg:data.msg, from: data.sender})
     // socket.to(data.socket).emit(`${data.sender}`, {msg:data.msg, from: data.sender})
-    socket.broadcast.to(data.to).emit(`${data.receiver}`, {msg:data.msg, from: data.sender})
+    // socket.broadcast.to(data.to).emit(`${data.receiver}`, {msg:data.msg, from: data.sender})
     io.emit(`${data.sender}`, {msg:data.msg, from: data.sender})
 
     const updateMessages = async () => {
