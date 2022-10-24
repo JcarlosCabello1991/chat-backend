@@ -81,6 +81,9 @@ io.on('connection', function (socket) {
     const senderUserSocket = onlineUsers.get(data.sender);
     console.log("sender",senderUserSocket);
 
+    //Check if the user who is goint to receive the message is online
+    const isUserOnline = usuarios.find(user => user.id == data.to)
+    console.log("IS USER ONLINE",isUserOnline)
     //Sending the new message to the users of the current convertation
     if(senderUserSocket)socket.to(receiverUserSocket).emit(`${data.to}`, {msg:data.msg, from: data.sender})//receiverUserSocket
     // socket.broadcast.to(data.to).emit(`${data.receiver}`, {msg:data.msg, from: data.sender})
