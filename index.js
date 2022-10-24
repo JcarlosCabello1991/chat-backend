@@ -66,7 +66,7 @@ io.on('connection', function (socket) {
     
     //Sending the typing message to the receiver user
     if(receiverUserSocket)socket.to(receiverUserSocket).emit(`typing`, data.msg)
-    socket.broadcast.to(data.to).emit('typing',data.msg)    
+    // socket.broadcast.to(data.to).emit('typing',data.msg)    
   })
 
   //Hearing when a user sends a new message
