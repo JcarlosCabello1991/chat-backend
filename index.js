@@ -51,6 +51,13 @@ io.on('connection', function (socket) {
   
   console.log(`hola, ${socket}`);
 
+  //Disconnected User
+  io.on('Disconnect', function(data){
+    //Data contains the data info
+    const connectedUser = usuarios.filter(user => user.id != data.id)
+    io.emit('session_update', connectedUser.sort(fncompare), socket.id );
+  })
+
   //When user is connected we set in online user his id and socketId
   socket.on('connected', (userId) => {
     console.log(userId, socket.id);
