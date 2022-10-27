@@ -54,7 +54,7 @@ io.on('connection', function (socket) {
   //Disconnected User
   socket.on('Disconnect', function(data){
     //Data contains the data info
-    const connectedUser = usuarios.filter(user => user.id != data.id)
+    const connectedUser = usuarios.filter(user => user.id == data.id)
     io.emit('session_update', connectedUser.sort(fncompare), socket.id );
   })
 
