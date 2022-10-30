@@ -56,6 +56,7 @@ io.on('connection', function (socket) {
     //Data contains the data info
     console.log("Users", usuarios)
     const connectedUser = usuarios.filter(user => user.id != data.id)
+    usuarios = connectedUser;
     console.log("UsersNUEVOA", connectedUser)
     io.emit('session_update', connectedUser.sort(fncompare), socket.id );
     socket.disconnect();
